@@ -63,7 +63,7 @@ to the ``INSTALLED_APPS`` add the database settings::
     }
     
 Create database tables::
-
+    $ ./manage.py makemigrations microservices
     $ ./manage.py migrate
 
 Create an admin user::
@@ -74,14 +74,13 @@ Edit the root urls file to look like this::
 
     # service_manager/urls.py
 
-    from django.conf.urls import include, url
     from django.contrib import admin
-
+    from django.urls import path, include
     from microservices.admin import services_admin_site
 
     urlpatterns = [
-        url(r'^',      include('microservices.urls')),
-        url(r'^admin/', include(services_admin_site.urls)),
+        path('admin/', services_admin_site.urls),
+        path('',include('microservices.urls'))
     ]
 
 
